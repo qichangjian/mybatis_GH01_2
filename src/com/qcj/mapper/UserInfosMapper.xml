@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper映射的命名空间和mapper映射的接口名称一致：并且用全限定名称-->
+<mapper namespace="com.qcj.mapper.UserInfosMapper">
+    <!--id名称和接口中方法相同，返回类型和接口方法返回类型相同，参数和接口方法中参数可以不相同-->
+    <!--<select id="selectUserInfos" resultType="UserInfos">
+        select * from userinfos where uid = #{uid}
+    </select>-->
+
+    <select id="selectAll" resultType="UserInfos">
+        select * from userinfos
+    </select>
+
+    <!--如果返回值类型实体类和数据库中的字段名称对不起来，结果集就不会封装这个字段
+        解决方法：
+        利用查询语句的别名修改字段名相同
+    -->
+    <select id="selectLikeName" resultType="UserInfos">
+        select * from userinfos where uname like '%${value}%'
+    </select>
+
+    <update id="updateUserInfosById">
+        update userinfos set uname = #{uname},password = #{password} where uid = #{uid}
+    </update>
+
+    <insert id="insertUserInfos">
+        insert into userinfos(uname,password) values(#{uname},#{password});
+    </insert>
+
+    <delete id="deleteUserInfos">
+        delete from userinfos where uid = #{uid}
+    </delete>
+</mapper>
